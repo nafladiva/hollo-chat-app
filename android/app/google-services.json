@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "395506212187",
+    "project_id": "hollo-chat-app",
+    "storage_bucket": "hollo-chat-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395506212187:android:61ff926703c48891f00e7e",
+        "android_client_info": {
+          "package_name": "com.example.hollo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395506212187-s4lplpvgvp1a0f6g3tec8gv0pktiiqe4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqF_ZpU0VdPAD5iEn1bD1bSewa3N5b_ug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395506212187-s4lplpvgvp1a0f6g3tec8gv0pktiiqe4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
