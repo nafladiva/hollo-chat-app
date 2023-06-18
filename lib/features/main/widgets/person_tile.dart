@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/features/chat/pages/pages.dart';
 
 class PersonTile extends StatelessWidget {
   const PersonTile({
@@ -12,7 +13,14 @@ class PersonTile extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (context) => const ChatPage(),
+              ),
+            );
+          },
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 2.w),
             child: Row(
