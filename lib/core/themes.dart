@@ -7,6 +7,10 @@ class Themes {
   static ThemeData get init {
     return ThemeData(
       primaryColor: MyColor.primary,
+      appBarTheme: const AppBarTheme(color: MyColor.primary),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: MyColor.primary,
+      ),
       textTheme: GoogleFonts.interTextTheme(),
     );
   }
