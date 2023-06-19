@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/core.dart';
 import 'features/main/pages/pages.dart';
+import 'features/auth/pages/pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
           title: 'Hollo',
           theme: Themes.init,
           home: const MainPage(),
+          // home: const LoginPage(),
         );
       },
     );
