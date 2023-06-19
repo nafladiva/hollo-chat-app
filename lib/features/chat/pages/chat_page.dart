@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/shared/shared.dart';
 
 import '../widgets/widgets.dart';
 
@@ -41,12 +42,9 @@ class ChatPage extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: MyColor.primary.withOpacity(0.15),
-                  hintText: 'Send a message...',
-                ),
+              child: MyTextField(
+                fillColor: MyColor.primary.withOpacity(0.15),
+                hintText: 'Send a message...',
               ),
             ),
             SizedBox(width: 10.w),
