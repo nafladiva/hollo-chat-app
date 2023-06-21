@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/auth/cubits/cubits.dart';
 import 'package:hollo/features/auth/pages/pages.dart';
-import 'package:hollo/features/main/pages/pages.dart';
+import 'package:hollo/features/main_page/pages/pages.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});

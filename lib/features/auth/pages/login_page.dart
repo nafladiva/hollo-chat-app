@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
-import 'package:hollo/features/main/pages/pages.dart';
+import 'package:hollo/features/main_page/pages/pages.dart';
 import 'package:hollo/shared/shared.dart';
 
 import '../cubits/cubits.dart';
