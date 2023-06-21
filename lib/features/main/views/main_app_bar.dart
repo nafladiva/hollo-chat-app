@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/features/auth/cubits/cubits.dart';
+import 'package:hollo/features/auth/pages/pages.dart';
 
 import '../cubits/cubits.dart';
 
@@ -18,34 +20,51 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
     final mainCubit = context.read<MainCubit>();
 
-    return AppBar(
-      centerTitle: false,
-      elevation: 2,
-      title: Text(
-        'Hollo!',
-        style: TStyles.h4(color: MyColor.text),
-      ),
-      actions: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.w),
-          child: InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.settings,
-              color: MyColor.text,
+    return BlocListener<AuthCubit, AuthState>(
+      bloc: authCubit,
+      listener: (context, state) {
+        if (!state.isAuthenticated) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+          );
+        }
+      },
+      child: AppBar(
+        centerTitle: false,
+        elevation: 2,
+        title: Text(
+          'Hollo!',
+          style: TStyles.h4(color: MyColor.text),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.w),
+            child: InkWell(
+              onTap: () {
+                //Temporary
+                authCubit.logout();
+              },
+              child: const Icon(
+                Icons.settings,
+                color: MyColor.text,
+              ),
             ),
           ),
-        ),
-      ],
-      bottom: TabBar(
-        controller: tabController,
-        tabs: const [
-          Tab(text: 'Message'),
-          Tab(text: 'Friends'),
         ],
-        onTap: (index) => mainCubit.setTabByIndex(index),
+        bottom: TabBar(
+          controller: tabController,
+          tabs: const [
+            Tab(text: 'Message'),
+            Tab(text: 'Friends'),
+          ],
+          onTap: (index) => mainCubit.setTabByIndex(index),
+        ),
       ),
     );
   }

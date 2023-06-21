@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hollo/core/core.dart';
 
 import '../../repositories/repositories.dart';
@@ -8,11 +10,24 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository repository;
+  final _firebaseAuth = FirebaseAuth.instance;
 
   AuthCubit({required this.repository})
       : super(
           const AuthState(authStatus: ViewState.initial()),
         );
+
+  final _flutterStorage = const FlutterSecureStorage();
+  FirebaseAuth get firebaseAuth => _firebaseAuth;
+
+  void onBuild() async {
+    final uid = await _flutterStorage.read(key: 'uid');
+    if (uid != null) {
+      emit(state.copyWith(isAuthenticated: true));
+    } else {
+      emit(state.copyWith(isAuthenticated: false));
+    }
+  }
 
   void onChangeEmail(String email) {
     emit(state.copyWith(email: email));
@@ -37,9 +52,12 @@ class AuthCubit extends Cubit<AuthState> {
         email: state.email,
         password: state.password,
       );
+      await _flutterStorage.write(key: 'uid', value: credential.user?.uid);
 
-      //TODO: Handle save credential to local storage
-      emit(state.copyWith(authStatus: const ViewState.success()));
+      emit(state.copyWith(
+        authStatus: const ViewState.success(),
+        isAuthenticated: true,
+      ));
     } catch (_) {
       emit(state.copyWith(authStatus: const ViewState.failed()));
     }
@@ -52,21 +70,31 @@ class AuthCubit extends Cubit<AuthState> {
         email: state.email,
         password: state.password,
       );
+      await _flutterStorage.write(key: 'uid', value: credential.user?.uid);
 
-      //TODO: Handle save credential to local storage
-      emit(state.copyWith(authStatus: const ViewState.success()));
-    } catch (e) {
-      emit(state.copyWith(authStatus: const ViewState.failed()));
+      emit(state.copyWith(
+        authStatus: const ViewState.success(),
+        isAuthenticated: true,
+      ));
+    } on FirebaseAuthException catch (e) {
+      emit(
+        state.copyWith(
+          authStatus: ViewState.failed(errorMessage: e.message),
+        ),
+      );
     }
   }
 
   Future<void> logout() async {
     emit(state.copyWith(authStatus: const ViewState.loading()));
     try {
-      //TODO: Handle remove credential from local storage
-
       await repository.logout();
-      emit(state.copyWith(authStatus: const ViewState.success()));
+      await _flutterStorage.deleteAll();
+
+      emit(state.copyWith(
+        authStatus: const ViewState.success(),
+        isAuthenticated: false,
+      ));
     } catch (e) {
       emit(state.copyWith(authStatus: const ViewState.failed()));
     }

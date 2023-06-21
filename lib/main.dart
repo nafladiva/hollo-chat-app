@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hollo/features/auth/cubits/cubits.dart';
+import 'package:hollo/features/auth/repositories/repositories.dart';
 
 import 'core/core.dart';
-import 'features/main/pages/pages.dart';
-import 'features/auth/pages/pages.dart';
+import 'features/splash/pages/pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,11 +23,15 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Hollo',
-          theme: Themes.init,
-          home: const MainPage(),
-          // home: const LoginPage(),
+        return BlocProvider(
+          create: (context) => AuthCubit(
+            repository: AuthRepositoryImpl(),
+          )..onBuild(),
+          child: MaterialApp(
+            title: 'Hollo',
+            theme: Themes.init,
+            home: const SplashPage(),
+          ),
         );
       },
     );
