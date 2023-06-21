@@ -10,18 +10,27 @@ abstract class AuthRepository {
 
 class AuthRepositoryImpl implements AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
-  User? get currentUser => _firebaseAuth.currentUser;
-  Stream<User?> get authStateChanged => _firebaseAuth.authStateChanges();
+  // User? get currentUser => _firebaseAuth.currentUser;
+  // Stream<User?> get authStateChanged => _firebaseAuth.authStateChanges();
 
   @override
   Future<UserCredential> login({
     required String email,
     required String password,
   }) async {
-    return await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      return await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthException(
+        code: e.code,
+        message: e.message,
+      );
+    } catch (e) {
+      throw Exception();
+    }
   }
 
   @override
@@ -29,14 +38,29 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    return await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      return await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthException(
+        code: e.code,
+        message: e.message,
+      );
+    } catch (e) {
+      throw Exception();
+    }
   }
 
   @override
   Future<void> logout() async {
-    await _firebaseAuth.signOut();
+    try {
+      await _firebaseAuth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw Exception();
+    } catch (e) {
+      throw Exception();
+    }
   }
 }
