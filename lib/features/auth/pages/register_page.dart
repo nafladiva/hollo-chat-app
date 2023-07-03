@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/features/main_page/pages/pages.dart';
 import 'package:hollo/shared/shared.dart';
 
 import '../cubits/cubits.dart';
@@ -17,7 +18,17 @@ class RegisterPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(18.w),
-          child: BlocBuilder<AuthCubit, AuthState>(
+          child: BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state.isAuthenticated) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(),
+                  ),
+                );
+              }
+            },
             builder: (context, state) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
