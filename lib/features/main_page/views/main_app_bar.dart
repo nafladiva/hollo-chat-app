@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/auth/cubits/cubits.dart';
 import 'package:hollo/features/auth/pages/pages.dart';
@@ -16,7 +15,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final TabController tabController;
 
   @override
-  Size get preferredSize => Size(double.infinity, 70.w);
+  Size get preferredSize => const Size(double.infinity, 70);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.w),
+            padding: const EdgeInsets.symmetric(horizontal: 14),
             child: InkWell(
               onTap: () {
                 //Temporary

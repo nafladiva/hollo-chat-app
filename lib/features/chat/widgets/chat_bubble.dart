@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
 
 class ChatBubble extends StatelessWidget {
@@ -18,19 +17,21 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Row(
       mainAxisAlignment:
           isOpponent ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         Container(
           constraints: BoxConstraints(
-            maxWidth: 1.sw - 70.w,
+            maxWidth: screenWidth - 70,
           ),
-          padding: EdgeInsets.all(10.w),
-          margin: EdgeInsets.only(bottom: 6.w),
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.only(bottom: 6),
           decoration: BoxDecoration(
             color: isOpponent ? MyColor.primary : MyColor.secondary,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
             message,

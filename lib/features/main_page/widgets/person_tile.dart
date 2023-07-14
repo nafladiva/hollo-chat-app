@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/chat/pages/pages.dart';
 
@@ -22,14 +21,14 @@ class PersonTile extends StatelessWidget {
             );
           },
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 2.w),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 25.r,
+                const CircleAvatar(
+                  radius: 25,
                   backgroundColor: MyColor.secondary,
                 ),
-                SizedBox(width: 14.w),
+                const SizedBox(width: 14),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -39,7 +38,7 @@ class PersonTile extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TStyles.sh2(),
                     ),
-                    SizedBox(height: 3.w),
+                    const SizedBox(height: 3),
                     Text(
                       'How you doing?',
                       maxLines: 1,

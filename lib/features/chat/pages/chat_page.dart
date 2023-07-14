@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/shared/shared.dart';
 
@@ -14,14 +13,14 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Jennie Ruby Jane',
-          style: TStyles.sh3(color: Colors.white),
+          style: TStyles.sh3(color: Colors.white10),
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(14.w),
+          padding: EdgeInsets.all(14),
           child: Column(
-            children: const [
+            children: [
               ChatBubble.opponent(message: 'Holloooo!'),
               ChatBubble.opponent(message: 'How you doing'),
               ChatBubble(message: 'I\'m good :)'),
@@ -37,7 +36,7 @@ class ChatPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.fromLTRB(12.w, 12.w, 12.w, 20.w),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 20),
         color: Colors.white,
         child: Row(
           children: [
@@ -47,11 +46,11 @@ class ChatPage extends StatelessWidget {
                 hintText: 'Send a message...',
               ),
             ),
-            SizedBox(width: 10.w),
-            Icon(
+            const SizedBox(width: 10),
+            const Icon(
               Icons.send,
               color: MyColor.primary,
-              size: 28.w,
+              size: 28,
             ),
           ],
         ),

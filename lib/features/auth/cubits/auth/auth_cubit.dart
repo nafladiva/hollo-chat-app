@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/services/service.dart';
 
 import '../../repositories/repositories.dart';
 
@@ -52,7 +53,13 @@ class AuthCubit extends Cubit<AuthState> {
         email: state.email,
         password: state.password,
       );
-      await _flutterStorage.write(key: 'uid', value: credential.user?.uid);
+
+      final uid = credential.user?.uid ?? '';
+      final name = credential.user?.displayName ?? 'display-name';
+
+      await ZegoService.login(uid, name);
+
+      await _flutterStorage.write(key: 'uid', value: uid);
 
       emit(state.copyWith(
         authStatus: const ViewState.success(),
@@ -70,7 +77,13 @@ class AuthCubit extends Cubit<AuthState> {
         email: state.email,
         password: state.password,
       );
-      await _flutterStorage.write(key: 'uid', value: credential.user?.uid);
+
+      final uid = credential.user?.uid ?? '';
+      final name = credential.user?.displayName ?? 'display-name';
+
+      await ZegoService.login(uid, name);
+
+      await _flutterStorage.write(key: 'uid', value: uid);
 
       emit(state.copyWith(
         authStatus: const ViewState.success(),
@@ -90,6 +103,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await repository.logout();
       await _flutterStorage.deleteAll();
+      ZegoService.logout();
 
       emit(state.copyWith(
         authStatus: const ViewState.success(),

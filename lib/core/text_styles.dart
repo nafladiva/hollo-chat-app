@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
 
 class TStyles {
   static TextStyle h1({Color? color}) {
     return TextStyle(
-      fontSize: 24.sp,
+      fontSize: 24,
       fontWeight: FontWeight.w700,
       color: color ?? MyColor.text,
     );
@@ -13,7 +12,7 @@ class TStyles {
 
   static TextStyle h2({Color? color}) {
     return TextStyle(
-      fontSize: 20.sp,
+      fontSize: 20,
       fontWeight: FontWeight.w700,
       color: color ?? MyColor.text,
     );
@@ -21,7 +20,7 @@ class TStyles {
 
   static TextStyle h3({Color? color}) {
     return TextStyle(
-      fontSize: 18.sp,
+      fontSize: 18,
       fontWeight: FontWeight.w700,
       color: color ?? MyColor.text,
     );
@@ -29,7 +28,7 @@ class TStyles {
 
   static TextStyle h4({Color? color}) {
     return TextStyle(
-      fontSize: 16.sp,
+      fontSize: 16,
       fontWeight: FontWeight.w700,
       color: color ?? MyColor.text,
     );
@@ -37,7 +36,7 @@ class TStyles {
 
   static TextStyle sh1({Color? color}) {
     return TextStyle(
-      fontSize: 16.sp,
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       color: color ?? MyColor.text,
     );
@@ -45,7 +44,7 @@ class TStyles {
 
   static TextStyle sh2({Color? color}) {
     return TextStyle(
-      fontSize: 15.sp,
+      fontSize: 15,
       fontWeight: FontWeight.w600,
       color: color ?? MyColor.text,
     );
@@ -53,7 +52,7 @@ class TStyles {
 
   static TextStyle sh3({Color? color}) {
     return TextStyle(
-      fontSize: 14.sp,
+      fontSize: 14,
       fontWeight: FontWeight.w600,
       color: color ?? MyColor.text,
     );
@@ -61,7 +60,7 @@ class TStyles {
 
   static TextStyle sh4({Color? color}) {
     return TextStyle(
-      fontSize: 13.sp,
+      fontSize: 13,
       fontWeight: FontWeight.w600,
       color: color ?? MyColor.text,
     );
@@ -69,7 +68,7 @@ class TStyles {
 
   static TextStyle sh5({Color? color}) {
     return TextStyle(
-      fontSize: 12.sp,
+      fontSize: 12,
       fontWeight: FontWeight.w600,
       color: color ?? MyColor.text,
     );
@@ -77,7 +76,7 @@ class TStyles {
 
   static TextStyle sh6({Color? color}) {
     return TextStyle(
-      fontSize: 11.sp,
+      fontSize: 11,
       fontWeight: FontWeight.w600,
       color: color ?? MyColor.text,
     );
@@ -85,7 +84,7 @@ class TStyles {
 
   static TextStyle p1({Color? color}) {
     return TextStyle(
-      fontSize: 14.sp,
+      fontSize: 14,
       fontWeight: FontWeight.w400,
       color: color ?? MyColor.text,
     );
@@ -93,7 +92,7 @@ class TStyles {
 
   static TextStyle p2({Color? color}) {
     return TextStyle(
-      fontSize: 13.sp,
+      fontSize: 13,
       fontWeight: FontWeight.w400,
       color: color ?? MyColor.text,
     );
@@ -101,7 +100,7 @@ class TStyles {
 
   static TextStyle p3({Color? color}) {
     return TextStyle(
-      fontSize: 12.sp,
+      fontSize: 12,
       fontWeight: FontWeight.w400,
       color: color ?? MyColor.text,
     );
@@ -109,7 +108,7 @@ class TStyles {
 
   static TextStyle p4({Color? color}) {
     return TextStyle(
-      fontSize: 11.sp,
+      fontSize: 11,
       fontWeight: FontWeight.w400,
       color: color ?? MyColor.text,
     );
@@ -117,7 +116,7 @@ class TStyles {
 
   static TextStyle p5({Color? color}) {
     return TextStyle(
-      fontSize: 10.sp,
+      fontSize: 10,
       fontWeight: FontWeight.w400,
       color: color ?? MyColor.text,
     );

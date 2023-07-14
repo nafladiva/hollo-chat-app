@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/main_page/pages/pages.dart';
 import 'package:hollo/shared/shared.dart';
@@ -18,15 +17,16 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(18.w),
+          padding: const EdgeInsets.all(18),
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state.isAuthenticated) {
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const MainPage(),
                   ),
+                  (route) => false,
                 );
               }
             },
@@ -38,19 +38,19 @@ class LoginPage extends StatelessWidget {
                     'Login',
                     style: TStyles.h2(),
                   ),
-                  SizedBox(height: 25.w),
+                  const SizedBox(height: 25),
                   MyTextField(
                     hintText: 'Email',
                     textInputType: TextInputType.emailAddress,
                     onChanged: authCubit.onChangeEmail,
                   ),
-                  SizedBox(height: 12.w),
+                  const SizedBox(height: 12),
                   MyTextField(
                     hintText: 'Password',
                     obscureText: true,
                     onChanged: authCubit.onChangePassword,
                   ),
-                  SizedBox(height: 20.w),
+                  const SizedBox(height: 20),
                   if (state.authStatus.isLoading) ...[
                     const CircularProgressIndicator(),
                   ] else ...[
@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                       onTap: authCubit.login,
                     ),
                   ],
-                  SizedBox(height: 15.w),
+                  const SizedBox(height: 15),
                   TextButton(
                     onPressed: () {
                       authCubit.resetState();
