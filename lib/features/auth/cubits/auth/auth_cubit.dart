@@ -44,6 +44,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(email: email));
   }
 
+  void onChangeName(String name) {
+    emit(state.copyWith(name: name));
+  }
+
   void onChangePassword(String password) {
     emit(state.copyWith(password: password));
   }
@@ -89,10 +93,12 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> register() async {
     emit(state.copyWith(authStatus: const ViewState.loading()));
+
     try {
       final credential = await repository.register(
         email: state.email,
         password: state.password,
+        name: state.name,
       );
 
       final uid = credential.user?.uid ?? '';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hollo/core/my_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/features/chat_list/chat_list.dart';
+import 'package:hollo/features/contact/contact.dart';
 
 import '../cubits/cubits.dart';
 import '../helpers/helpers.dart';
@@ -57,7 +58,14 @@ class _MainPageState extends State<MainPage>
                   Icons.add,
                   color: MyColor.text,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ContactPage(),
+                    ),
+                  );
+                },
               ),
             ),
             body: TabBarView(

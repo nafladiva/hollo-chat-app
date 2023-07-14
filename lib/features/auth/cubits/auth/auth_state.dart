@@ -6,6 +6,7 @@ class AuthState extends Equatable {
   final UserMdl? user;
   final String email;
   final String password;
+  final String? name;
 
   const AuthState({
     required this.authStatus,
@@ -13,6 +14,7 @@ class AuthState extends Equatable {
     this.user,
     this.email = '',
     this.password = '',
+    this.name,
   });
 
   bool get isValid => email.isNotEmpty && password.isNotEmpty;
@@ -23,6 +25,7 @@ class AuthState extends Equatable {
     UserMdl? user,
     String? email,
     String? password,
+    String? name,
   }) {
     return AuthState(
       authStatus: authStatus ?? this.authStatus,
@@ -30,6 +33,7 @@ class AuthState extends Equatable {
       user: user ?? this.user,
       email: email ?? this.email,
       password: password ?? this.password,
+      name: name ?? this.name,
     );
   }
 
@@ -40,5 +44,6 @@ class AuthState extends Equatable {
         user,
         email,
         password,
+        name,
       ];
 }

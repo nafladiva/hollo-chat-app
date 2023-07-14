@@ -5,7 +5,7 @@ abstract class AuthRepository {
   Future<UserCredential> login(
       {required String email, required String password});
   Future<UserCredential> register(
-      {required String email, required String password});
+      {required String email, required String password, String? name});
   Future<void> logout();
 }
 
@@ -38,6 +38,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserCredential> register({
     required String email,
     required String password,
+    String? name,
   }) async {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -51,6 +52,7 @@ class AuthRepositoryImpl implements AuthRepository {
           .doc(credential.user?.uid)
           .set({
         'email': credential.user?.email,
+        'name': name,
       });
 
       return credential;
@@ -68,7 +70,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> logout() async {
     try {
       await _firebaseAuth.signOut();
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (_) {
       throw Exception();
     } catch (e) {
       throw Exception();
