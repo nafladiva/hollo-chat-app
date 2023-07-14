@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/services/service.dart';
+import 'package:hollo/shared/shared.dart';
 
 import '../../repositories/repositories.dart';
 
@@ -23,7 +26,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   void onBuild() async {
     final uid = await _flutterStorage.read(key: 'uid');
+
     if (uid != null) {
+      await getUserData();
+
+      if (state.user != null) {
+        /// login zego
+        await ZegoService.login(state.user!.uid, state.user!.email);
+      }
       emit(state.copyWith(isAuthenticated: true));
     } else {
       emit(state.copyWith(isAuthenticated: false));
@@ -55,15 +65,22 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       final uid = credential.user?.uid ?? '';
-      final name = credential.user?.displayName ?? 'display-name';
+      final email = credential.user?.email ?? '';
+      final userData = UserMdl(uid: uid, email: email);
 
-      await ZegoService.login(uid, name);
+      /// login zego
+      await ZegoService.login(uid, email);
 
       await _flutterStorage.write(key: 'uid', value: uid);
+      await _flutterStorage.write(
+        key: 'userData',
+        value: json.encode(userData.toMap()),
+      );
 
       emit(state.copyWith(
         authStatus: const ViewState.success(),
         isAuthenticated: true,
+        user: userData,
       ));
     } catch (_) {
       emit(state.copyWith(authStatus: const ViewState.failed()));
@@ -79,15 +96,22 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       final uid = credential.user?.uid ?? '';
-      final name = credential.user?.displayName ?? 'display-name';
+      final email = credential.user?.email ?? '';
+      final userData = UserMdl(uid: uid, email: email);
 
-      await ZegoService.login(uid, name);
+      /// login zego
+      await ZegoService.login(uid, email);
 
       await _flutterStorage.write(key: 'uid', value: uid);
+      await _flutterStorage.write(
+        key: 'userData',
+        value: json.encode(userData.toMap()),
+      );
 
       emit(state.copyWith(
         authStatus: const ViewState.success(),
         isAuthenticated: true,
+        user: userData,
       ));
     } on FirebaseAuthException catch (e) {
       emit(
@@ -96,6 +120,13 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       );
     }
+  }
+
+  Future<void> getUserData() async {
+    final result = await _flutterStorage.read(key: 'userData') ?? '';
+    final userData = UserMdl.fromMap(json.decode(result));
+
+    emit(state.copyWith(user: userData));
   }
 
   Future<void> logout() async {

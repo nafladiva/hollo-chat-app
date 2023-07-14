@@ -50,7 +50,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                 authCubit.logout();
               },
               child: const Icon(
-                Icons.settings,
+                Icons.logout,
                 color: MyColor.text,
               ),
             ),
