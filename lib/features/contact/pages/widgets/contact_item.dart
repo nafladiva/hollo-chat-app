@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/features/chat/pages/pages.dart';
 import 'package:hollo/shared/shared.dart';
 
 class ContactItem extends StatelessWidget {
@@ -15,6 +16,12 @@ class ContactItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         //TODO: start chat
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<void>(
+            builder: (context) => ChatPage(contact: contact),
+          ),
+        );
       },
       child: Container(
         width: double.infinity,

@@ -13,12 +13,12 @@ class PersonTile extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder: (context) => const ChatPage(),
-              ),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute<void>(
+            //     builder: (context) => const ChatPage(),
+            //   ),
+            // );
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),

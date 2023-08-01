@@ -51,7 +51,19 @@ class ZegoService {
     return instance.queryConversationList(config);
   }
 
-  static sendMessage(String message, String conversationId) {
+  static Future<ZIMMessageQueriedResult> getMessage(
+    String conversationId,
+  ) {
+    ZIMMessageQueryConfig config = ZIMMessageQueryConfig();
+
+    return instance.queryHistoryMessage(
+      conversationId,
+      ZIMConversationType.peer,
+      config,
+    );
+  }
+
+  static Future<void> sendMessage(String message, String conversationId) async {
     ZIMTextMessage textMessage = ZIMTextMessage(message: message);
 
     ZIMMessageSendConfig sendConfig = ZIMMessageSendConfig();
@@ -69,7 +81,7 @@ class ZegoService {
     //   //  The callback on the message not sent yet. You can get a temporary object here and this object must be the same as that created zimMessage object. You can make your own business logic using this as needed, for example, display a UI ahead of time.
     // });
 
-    instance.sendMessage(textMessage, conversationId, type, sendConfig);
+    await instance.sendMessage(textMessage, conversationId, type, sendConfig);
     //     .then(
     //       (value) => {
     //         // The callback on the results of message sending.

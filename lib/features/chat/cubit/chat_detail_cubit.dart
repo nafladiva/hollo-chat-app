@@ -6,26 +6,26 @@ import 'package:hollo/core/core.dart';
 import 'package:hollo/services/service.dart';
 import 'package:zego_zim/zego_zim.dart';
 
-part 'chat_list_state.dart';
+part 'chat_detail_state.dart';
 
-class ChatListCubit extends Cubit<ChatListState> {
-  ChatListCubit()
+class ChatDetailCubit extends Cubit<ChatDetailState> {
+  ChatDetailCubit()
       : super(
-          const ChatListState(
+          const ChatDetailState(
             loadStatus: ViewState.initial(),
           ),
         );
 
-  Future<void> getChatList() async {
+  Future<void> getMessage(String conversationId) async {
     emit(state.copyWith(loadStatus: const ViewState.loading()));
 
     try {
-      final result = await ZegoService.getAllMessages();
-      log('conversation lits : ${result.conversationList.toString()}');
+      final result = await ZegoService.getMessage(conversationId);
+      log('message : ${result.messageList}');
 
       emit(state.copyWith(
-        loadStatus: const ViewState.success(),
-        chatList: result.conversationList,
+        messages: result.messageList,
+        loadStatus: const ViewState.failed(),
       ));
     } catch (e) {
       emit(state.copyWith(loadStatus: const ViewState.failed()));
