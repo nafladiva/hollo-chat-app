@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hollo/core/core.dart';
-import 'package:hollo/services/service.dart';
 import 'package:hollo/shared/shared.dart';
 
 import '../../repositories/repositories.dart';
@@ -30,10 +29,10 @@ class AuthCubit extends Cubit<AuthState> {
     if (uid != null) {
       await getUserData();
 
-      if (state.user != null) {
-        /// login zego
-        await ZegoService.login(state.user!.uid, state.user!.email);
-      }
+      // if (state.user != null) {
+      //   /// login zego
+      //   await ZegoService.login(state.user!.uid, state.user!.email);
+      // }
       emit(state.copyWith(isAuthenticated: true));
     } else {
       emit(state.copyWith(isAuthenticated: false));
@@ -72,8 +71,8 @@ class AuthCubit extends Cubit<AuthState> {
       final email = credential.user?.email ?? '';
       final userData = UserMdl(uid: uid, email: email);
 
-      /// login zego
-      await ZegoService.login(uid, email);
+      // /// login zego
+      // await ZegoService.login(uid, email);
 
       await _flutterStorage.write(key: 'uid', value: uid);
       await _flutterStorage.write(
@@ -105,8 +104,8 @@ class AuthCubit extends Cubit<AuthState> {
       final email = credential.user?.email ?? '';
       final userData = UserMdl(uid: uid, email: email);
 
-      /// login zego
-      await ZegoService.login(uid, email);
+      // /// login zego
+      // await ZegoService.login(uid, email);
 
       await _flutterStorage.write(key: 'uid', value: uid);
       await _flutterStorage.write(
@@ -140,7 +139,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await repository.logout();
       await _flutterStorage.deleteAll();
-      ZegoService.logout();
+      // ZegoService.logout();
 
       emit(state.copyWith(
         authStatus: const ViewState.success(),

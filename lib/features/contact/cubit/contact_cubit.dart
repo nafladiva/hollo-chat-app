@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/shared/shared.dart';
@@ -37,7 +37,6 @@ class ContactCubit extends Cubit<ContactState> {
         ),
       );
     } catch (e) {
-      print(e);
       emit(state.copyWith(loadStatus: const ViewState.failed()));
     }
   }

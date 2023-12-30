@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hollo/core/my_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hollo/features/chat_list/chat_list.dart';
 import 'package:hollo/features/contact/contact.dart';
 
 import '../cubits/cubits.dart';
@@ -71,7 +70,10 @@ class _MainPageState extends State<MainPage>
             body: TabBarView(
               controller: tabController,
               children: const [
-                ChatListPage(),
+                // ChatListPage(),
+                Scaffold(
+                  body: Center(),
+                ),
                 Center(child: Text('friendss')),
               ],
             ),

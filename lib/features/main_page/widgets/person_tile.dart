@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hollo/core/core.dart';
-import 'package:hollo/features/chat/pages/pages.dart';
+// import 'package:hollo/features/chat/pages/pages.dart';
 
 class PersonTile extends StatelessWidget {
   const PersonTile({
