@@ -5,8 +5,8 @@ import 'package:hollo/core/my_color.dart';
 import 'package:hollo/core/text_styles.dart';
 import 'package:hollo/features/auth/cubits/cubits.dart';
 import 'package:hollo/features/auth/pages/login_page.dart';
+import 'package:hollo/features/contact/pages/contact_page.dart';
 import 'package:hollo/services/stream_chat_service.dart';
-import 'package:hollo/shared/consts/user_const.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import 'channel_page.dart';
@@ -27,7 +27,9 @@ class _ChannelListPageState extends State<ChannelListPage> {
       'members',
       [StreamChat.of(context).currentUser!.id],
     ),
-    channelStateSort: const [SortOption('last_message_at')],
+    channelStateSort: const [
+      SortOption('last_message_at'),
+    ],
   );
 
   @override
@@ -55,7 +57,7 @@ class _ChannelListPageState extends State<ChannelListPage> {
         appBar: AppBar(
           title: Text(
             'Hollo',
-            style: TStyles.h3(),
+            style: TStyles.h4(),
           ),
           actions: [
             Padding(
@@ -74,22 +76,11 @@ class _ChannelListPageState extends State<ChannelListPage> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            // TODO: user should be able to choose other account through some contact
-
-            await StreamChatService.createChannel(
-              channelId: 'user1_user3',
-              // name: 'Jensetter',
-              members: [UserConst.idUser1, UserConst.idUser3],
-            ).then(
-              (channel) => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => StreamChannel(
-                    channel: channel,
-                    child: const ChannelPage(),
-                  ),
-                ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const ContactPage(),
               ),
             );
           },

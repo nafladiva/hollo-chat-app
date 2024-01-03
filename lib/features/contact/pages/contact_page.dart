@@ -42,8 +42,11 @@ class _ContactPageState extends State<ContactPage> {
           child: BlocBuilder<ContactCubit, ContactState>(
             builder: (context, state) {
               if (state.loadStatus.isLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               }
 

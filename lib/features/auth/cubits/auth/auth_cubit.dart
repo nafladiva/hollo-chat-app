@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/services/flutter_secure_storage_service.dart';
 import 'package:hollo/services/stream_chat_service.dart';
+import 'package:hollo/shared/consts/storage_key.dart';
 import 'package:hollo/shared/shared.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart' as sc;
 
@@ -25,7 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
   FirebaseAuth get firebaseAuth => _firebaseAuth;
 
   void onBuild() async {
-    final uid = await FlutterSecureStorageService.get(key: 'uid');
+    final uid = await FlutterSecureStorageService.get(key: StorageKey.uid);
 
     if (uid != null) {
       await getUserData();
@@ -80,9 +81,9 @@ class AuthCubit extends Cubit<AuthState> {
         name: userData.name,
       );
 
-      await FlutterSecureStorageService.set(key: 'uid', value: uid);
+      await FlutterSecureStorageService.set(key: StorageKey.uid, value: uid);
       await FlutterSecureStorageService.set(
-        key: 'userData',
+        key: StorageKey.userData,
         value: json.encode(userData.toMap()),
       );
 
@@ -131,9 +132,9 @@ class AuthCubit extends Cubit<AuthState> {
         name: userData.name,
       );
 
-      await FlutterSecureStorageService.set(key: 'uid', value: uid);
+      await FlutterSecureStorageService.set(key: StorageKey.uid, value: uid);
       await FlutterSecureStorageService.set(
-        key: 'userData',
+        key: StorageKey.userData,
         value: json.encode(userData.toMap()),
       );
 
@@ -152,7 +153,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> getUserData() async {
-    final result = await FlutterSecureStorageService.get(key: 'userData') ?? '';
+    final result =
+        await FlutterSecureStorageService.get(key: StorageKey.userData) ?? '';
     final userData = UserMdl.fromMap(json.decode(result));
 
     emit(state.copyWith(user: userData));
