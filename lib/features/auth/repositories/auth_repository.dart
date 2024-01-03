@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hollo/shared/models/user_mdl.dart';
 
 abstract class AuthRepository {
   Future<UserCredential> login(
       {required String email, required String password});
+  Future<UserMdl> getUserData(String uid);
   Future<UserCredential> register(
       {required String email, required String password, String? name});
   Future<void> logout();
@@ -30,6 +32,24 @@ class AuthRepositoryImpl implements AuthRepository {
         message: e.message,
       );
     } catch (e) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<UserMdl> getUserData(String uid) async {
+    try {
+      final result =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final data = result.data() as Map<String, dynamic>;
+
+      return UserMdl(
+        uid: data['uid'],
+        email: data['email'],
+        name: data['name'],
+      );
+    } catch (e) {
+      print(e);
       throw Exception();
     }
   }

@@ -6,11 +6,12 @@ class StreamChatService {
 
   static Future<void> connectUser({
     required User user,
-    required String token,
+    String? token,
   }) async {
+    /// using GetStream development env
     await client.connectUser(
       user,
-      token,
+      client.devToken(user.id).rawValue,
     );
   }
 
@@ -20,7 +21,7 @@ class StreamChatService {
 
   static Future<Channel> createChannel({
     required String channelId,
-    required String name,
+    String? name,
     List<String> members = const [],
   }) async {
     final channel = client.channel(

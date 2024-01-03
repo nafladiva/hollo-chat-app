@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
-import 'package:hollo/features/main_page/pages/pages.dart';
+import 'package:hollo/features/chat/pages/channel_list_page.dart';
 import 'package:hollo/shared/shared.dart';
 
 import '../cubits/cubits.dart';
@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MainPage(),
+                    builder: (context) => const ChannelListPage(),
                   ),
                   (route) => false,
                 );

@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/services/flutter_secure_storage_service.dart';
+import 'package:hollo/services/stream_chat_service.dart';
 import 'package:hollo/shared/shared.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart' as sc;
 
 import '../../repositories/repositories.dart';
 
@@ -20,19 +22,21 @@ class AuthCubit extends Cubit<AuthState> {
           const AuthState(authStatus: ViewState.initial()),
         );
 
-  final _flutterStorage = const FlutterSecureStorage();
   FirebaseAuth get firebaseAuth => _firebaseAuth;
 
   void onBuild() async {
-    final uid = await _flutterStorage.read(key: 'uid');
+    final uid = await FlutterSecureStorageService.get(key: 'uid');
 
     if (uid != null) {
       await getUserData();
 
-      // if (state.user != null) {
-      //   /// login zego
-      //   await ZegoService.login(state.user!.uid, state.user!.email);
-      // }
+      if (state.user != null) {
+        await connectUserToStream(
+          id: state.user!.uid,
+          name: state.user!.name,
+        );
+      }
+
       emit(state.copyWith(isAuthenticated: true));
     } else {
       emit(state.copyWith(isAuthenticated: false));
@@ -61,6 +65,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login() async {
     emit(state.copyWith(authStatus: const ViewState.loading()));
+
     try {
       final credential = await repository.login(
         email: state.email,
@@ -68,14 +73,15 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       final uid = credential.user?.uid ?? '';
-      final email = credential.user?.email ?? '';
-      final userData = UserMdl(uid: uid, email: email);
+      final userData = await repository.getUserData(uid);
 
-      // /// login zego
-      // await ZegoService.login(uid, email);
+      await connectUserToStream(
+        id: uid,
+        name: userData.name,
+      );
 
-      await _flutterStorage.write(key: 'uid', value: uid);
-      await _flutterStorage.write(
+      await FlutterSecureStorageService.set(key: 'uid', value: uid);
+      await FlutterSecureStorageService.set(
         key: 'userData',
         value: json.encode(userData.toMap()),
       );
@@ -88,6 +94,22 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (_) {
       emit(state.copyWith(authStatus: const ViewState.failed()));
     }
+  }
+
+  Future<void> connectUserToStream({
+    required String id,
+    required String name,
+  }) async {
+    await StreamChatService.connectUser(
+      user: sc.User(
+        id: id,
+        name: name,
+      ),
+    );
+  }
+
+  Future<void> disconnectUserFromStream() async {
+    await StreamChatService.disconnectUser();
   }
 
   Future<void> register() async {
@@ -104,11 +126,13 @@ class AuthCubit extends Cubit<AuthState> {
       final email = credential.user?.email ?? '';
       final userData = UserMdl(uid: uid, email: email);
 
-      // /// login zego
-      // await ZegoService.login(uid, email);
+      await connectUserToStream(
+        id: uid,
+        name: userData.name,
+      );
 
-      await _flutterStorage.write(key: 'uid', value: uid);
-      await _flutterStorage.write(
+      await FlutterSecureStorageService.set(key: 'uid', value: uid);
+      await FlutterSecureStorageService.set(
         key: 'userData',
         value: json.encode(userData.toMap()),
       );
@@ -128,7 +152,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> getUserData() async {
-    final result = await _flutterStorage.read(key: 'userData') ?? '';
+    final result = await FlutterSecureStorageService.get(key: 'userData') ?? '';
     final userData = UserMdl.fromMap(json.decode(result));
 
     emit(state.copyWith(user: userData));
@@ -136,10 +160,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logout() async {
     emit(state.copyWith(authStatus: const ViewState.loading()));
+
     try {
       await repository.logout();
-      await _flutterStorage.deleteAll();
-      // ZegoService.logout();
+      await FlutterSecureStorageService.deleteAll();
+      await disconnectUserFromStream();
 
       emit(state.copyWith(
         authStatus: const ViewState.success(),

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hollo/core/my_color.dart';
 import 'package:hollo/core/text_styles.dart';
+import 'package:hollo/features/auth/cubits/cubits.dart';
+import 'package:hollo/features/auth/pages/login_page.dart';
 import 'package:hollo/services/stream_chat_service.dart';
 import 'package:hollo/shared/consts/user_const.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
@@ -10,10 +14,7 @@ import 'channel_page.dart';
 class ChannelListPage extends StatefulWidget {
   const ChannelListPage({
     super.key,
-    required this.client,
   });
-
-  final StreamChatClient client;
 
   @override
   State<ChannelListPage> createState() => _ChannelListPageState();
@@ -21,7 +22,7 @@ class ChannelListPage extends StatefulWidget {
 
 class _ChannelListPageState extends State<ChannelListPage> {
   late final _controller = StreamChannelListController(
-    client: widget.client,
+    client: StreamChatService.client,
     filter: Filter.in_(
       'members',
       [StreamChat.of(context).currentUser!.id],
@@ -37,23 +38,71 @@ class _ChannelListPageState extends State<ChannelListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Hollo',
-          style: TStyles.h3(),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // TODO: user should be able to choose other account through some contact
+    final authCubit = context.read<AuthCubit>();
 
-          await StreamChatService.createChannel(
-            channelId: 'user1_user3',
-            name: 'Jensetter',
-            members: [UserConst.idUser1, UserConst.idUser3],
-          ).then(
-            (channel) => Navigator.push(
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (!state.isAuthenticated) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Hollo',
+            style: TStyles.h3(),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: InkWell(
+                onTap: () {
+                  //Temporary
+                  authCubit.logout();
+                },
+                child: const Icon(
+                  Icons.logout,
+                  color: MyColor.text,
+                ),
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            // TODO: user should be able to choose other account through some contact
+
+            await StreamChatService.createChannel(
+              channelId: 'user1_user3',
+              // name: 'Jensetter',
+              members: [UserConst.idUser1, UserConst.idUser3],
+            ).then(
+              (channel) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => StreamChannel(
+                    channel: channel,
+                    child: const ChannelPage(),
+                  ),
+                ),
+              ),
+            );
+          },
+          child: const Icon(
+            Icons.add,
+            size: 28,
+          ),
+        ),
+        body: RefreshIndicator(
+          onRefresh: _controller.refresh,
+          child: StreamChannelListView(
+            controller: _controller,
+            onChannelTap: (channel) => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (_) => StreamChannel(
@@ -62,29 +111,10 @@ class _ChannelListPageState extends State<ChannelListPage> {
                 ),
               ),
             ),
-          );
-        },
-        child: const Icon(
-          Icons.add,
-          size: 28,
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: _controller.refresh,
-        child: StreamChannelListView(
-          controller: _controller,
-          onChannelTap: (channel) => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => StreamChannel(
-                channel: channel,
-                child: const ChannelPage(),
-              ),
+            onChannelLongPress: (channel) => showCupertinoDialog(
+              context: context,
+              builder: (context) => DeleteAlertDialog(channel: channel),
             ),
-          ),
-          onChannelLongPress: (channel) => showCupertinoDialog(
-            context: context,
-            builder: (context) => DeleteAlertDialog(channel: channel),
           ),
         ),
       ),

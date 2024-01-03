@@ -3,27 +3,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/auth/cubits/cubits.dart';
 import 'package:hollo/features/auth/pages/pages.dart';
-import 'package:hollo/features/main_page/pages/pages.dart';
+import 'package:hollo/features/chat/pages/channel_list_page.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({super.key});
+  const SplashPage({
+    super.key,
+    required this.client,
+  });
+
+  final StreamChatClient client;
 
   @override
   Widget build(BuildContext context) {
+    // FOR TEST ONLY
+    // context.read<AuthCubit>().logout();
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        Future.delayed(
-          const Duration(seconds: 2),
-          () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => state.isAuthenticated
-                    ? const MainPage()
-                    : const LoginPage(),
-              ),
-            );
-          },
+        // TODO: need to fix auth state
+        final toPage =
+            state.isAuthenticated ? const ChannelListPage() : const LoginPage();
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPage,
+          ),
         );
       },
       child: Scaffold(

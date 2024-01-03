@@ -3,26 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/features/auth/cubits/cubits.dart';
 import 'package:hollo/features/auth/repositories/repositories.dart';
-import 'package:hollo/shared/consts/user_const.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import 'core/core.dart';
-import 'features/chat/pages/channel_list_page.dart';
+import 'features/splash/pages/splash_page.dart';
 import 'services/stream_chat_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await StreamChatService.init();
-
-  // TODO: handle with auth
-  await StreamChatService.connectUser(
-    user: User(
-      id: UserConst.idUser1,
-      name: UserConst.nameUser1,
-    ),
-    token: UserConst.tokenUser1,
-  );
 
   runApp(
     MyApp(
@@ -54,11 +44,8 @@ class MyApp extends StatelessWidget {
             child: widget,
           );
         },
-        home: StreamChat(
+        home: SplashPage(
           client: client,
-          child: ChannelListPage(
-            client: client,
-          ),
         ),
       ),
     );
