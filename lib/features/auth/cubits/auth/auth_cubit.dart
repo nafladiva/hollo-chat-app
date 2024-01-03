@@ -48,6 +48,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(email: email));
   }
 
+  void onChangeUsername(String username) {
+    emit(state.copyWith(username: username));
+  }
+
   void onChangeName(String name) {
     emit(state.copyWith(name: name));
   }
@@ -119,6 +123,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await repository.register(
         email: state.email,
+        username: state.username,
         password: state.password,
         name: state.name,
       );

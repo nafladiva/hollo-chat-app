@@ -50,6 +50,11 @@ class RegisterPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   MyTextField(
+                    hintText: 'Username',
+                    onChanged: authCubit.onChangeUsername,
+                  ),
+                  const SizedBox(height: 12),
+                  MyTextField(
                     hintText: 'Password',
                     onChanged: authCubit.onChangePassword,
                   ),

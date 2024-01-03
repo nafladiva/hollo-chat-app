@@ -3,11 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hollo/shared/models/user_mdl.dart';
 
 abstract class AuthRepository {
-  Future<UserCredential> login(
-      {required String email, required String password});
+  Future<UserCredential> login({
+    required String email,
+    required String password,
+  });
   Future<UserMdl> getUserData(String uid);
-  Future<UserCredential> register(
-      {required String email, required String password, String? name});
+  Future<UserCredential> register({
+    required String email,
+    required String username,
+    required String password,
+    String? name,
+  });
   Future<void> logout();
 }
 
@@ -57,6 +63,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserCredential> register({
     required String email,
+    required String username,
     required String password,
     String? name,
   }) async {
@@ -73,6 +80,7 @@ class AuthRepositoryImpl implements AuthRepository {
           .set({
         'uid': credential.user?.uid,
         'email': credential.user?.email,
+        'username': username,
         'name': name,
       });
 
