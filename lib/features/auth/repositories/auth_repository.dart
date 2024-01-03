@@ -46,10 +46,10 @@ class AuthRepositoryImpl implements AuthRepository {
       return UserMdl(
         uid: data['uid'],
         email: data['email'],
+        username: data['username'],
         name: data['name'],
       );
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

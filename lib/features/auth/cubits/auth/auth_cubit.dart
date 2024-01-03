@@ -117,32 +117,14 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(authStatus: const ViewState.loading()));
 
     try {
-      final credential = await repository.register(
+      await repository.register(
         email: state.email,
         password: state.password,
         name: state.name,
       );
 
-      final uid = credential.user?.uid ?? '';
-      final email = credential.user?.email ?? '';
-      final userData = UserMdl(uid: uid, email: email);
-
-      await connectUserToStream(
-        id: uid,
-        name: userData.name,
-      );
-
-      await FlutterSecureStorageService.set(key: StorageKey.uid, value: uid);
-      await FlutterSecureStorageService.set(
-        key: StorageKey.userData,
-        value: json.encode(userData.toMap()),
-      );
-
-      emit(state.copyWith(
-        authStatus: const ViewState.success(),
-        isAuthenticated: true,
-        user: userData,
-      ));
+      // auto login after register
+      await login();
     } on FirebaseAuthException catch (e) {
       emit(
         state.copyWith(

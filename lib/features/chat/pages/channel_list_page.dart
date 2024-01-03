@@ -6,6 +6,7 @@ import 'package:hollo/core/text_styles.dart';
 import 'package:hollo/features/auth/cubits/cubits.dart';
 import 'package:hollo/features/auth/pages/login_page.dart';
 import 'package:hollo/features/contact/pages/contact_page.dart';
+import 'package:hollo/features/profile/pages/profile_page.dart';
 import 'package:hollo/services/stream_chat_service.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
@@ -40,16 +41,15 @@ class _ChannelListPageState extends State<ChannelListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = context.read<AuthCubit>();
-
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (!state.isAuthenticated) {
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) => const LoginPage(),
             ),
+            (route) => false,
           );
         }
       },
@@ -64,11 +64,15 @@ class _ChannelListPageState extends State<ChannelListPage> {
               padding: const EdgeInsets.symmetric(horizontal: 14),
               child: InkWell(
                 onTap: () {
-                  //Temporary
-                  authCubit.logout();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ProfilePage(),
+                    ),
+                  );
                 },
                 child: const Icon(
-                  Icons.logout,
+                  Icons.person,
                   color: MyColor.text,
                 ),
               ),

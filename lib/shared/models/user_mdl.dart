@@ -3,11 +3,13 @@ import 'package:equatable/equatable.dart';
 class UserMdl extends Equatable {
   final String uid;
   final String email;
+  final String username;
   final String name;
 
   const UserMdl({
     required this.uid,
     required this.email,
+    required this.username,
     this.name = '',
   });
 
@@ -15,6 +17,7 @@ class UserMdl extends Equatable {
     return <String, dynamic>{
       'uid': uid,
       'email': email,
+      'username': username,
       'name': name,
     };
   }
@@ -23,10 +26,11 @@ class UserMdl extends Equatable {
     return UserMdl(
       uid: map['uid'],
       email: map['email'],
+      username: map['username'],
       name: map['name'],
     );
   }
 
   @override
-  List<Object?> get props => [uid, email, name];
+  List<Object?> get props => [uid, email, username, name];
 }
