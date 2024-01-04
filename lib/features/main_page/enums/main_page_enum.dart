@@ -1,1 +1,0 @@
-enum TabType { message, friend }
