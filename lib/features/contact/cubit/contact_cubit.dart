@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/services/flutter_secure_storage_service.dart';
 import 'package:hollo/shared/consts/storage_key.dart';
-import 'package:hollo/shared/shared.dart';
+import 'package:hollo/shared/models/user_mdl.dart';
 
 part 'contact_state.dart';
 

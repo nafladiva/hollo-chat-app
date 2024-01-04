@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/my_color.dart';
 import 'package:hollo/core/text_styles.dart';
-import 'package:hollo/features/auth/cubits/cubits.dart';
+import 'package:hollo/features/auth/cubits/auth_cubit.dart';
 import 'package:hollo/features/auth/pages/login_page.dart';
 import 'package:hollo/features/contact/pages/contact_page.dart';
 import 'package:hollo/features/profile/pages/profile_page.dart';

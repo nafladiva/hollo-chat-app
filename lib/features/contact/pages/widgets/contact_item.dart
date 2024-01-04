@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
-import 'package:hollo/features/auth/cubits/auth/auth_cubit.dart';
+import 'package:hollo/features/auth/cubits/auth_cubit.dart';
 import 'package:hollo/features/chat/pages/channel_page.dart';
 import 'package:hollo/services/stream_chat_service.dart';
-import 'package:hollo/shared/shared.dart';
+import 'package:hollo/shared/models/user_mdl.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class ContactItem extends StatelessWidget {

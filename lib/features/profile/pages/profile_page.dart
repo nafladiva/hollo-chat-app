@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
-import 'package:hollo/features/auth/cubits/auth/auth_cubit.dart';
-import 'package:hollo/shared/shared.dart';
+import 'package:hollo/features/auth/cubits/auth_cubit.dart';
+import 'package:hollo/shared/widgets/my_button.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

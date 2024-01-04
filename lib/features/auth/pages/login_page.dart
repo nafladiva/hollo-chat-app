@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/chat/pages/channel_list_page.dart';
-import 'package:hollo/shared/shared.dart';
+import 'package:hollo/shared/widgets/my_button.dart';
+import 'package:hollo/shared/widgets/my_text_field.dart';
 
-import '../cubits/cubits.dart';
+import '../cubits/auth_cubit.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatelessWidget {

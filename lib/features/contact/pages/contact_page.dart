@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 
-import '../cubit/cubit.dart';
-import 'widgets/widgets.dart';
+import '../cubit/contact_cubit.dart';
+import 'widgets/contact_item.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});

@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hollo/features/auth/cubits/cubits.dart';
-import 'package:hollo/features/auth/repositories/repositories.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import 'core/core.dart';
+import 'features/auth/cubits/auth_cubit.dart';
+import 'features/auth/repositories/auth_repository.dart';
 import 'features/splash/pages/splash_page.dart';
 import 'services/stream_chat_service.dart';
 
