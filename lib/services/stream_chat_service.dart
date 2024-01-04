@@ -50,8 +50,19 @@ class StreamChatService {
   static Future<void> deleteChannel({
     required String channelId,
   }) async {
-    //TODO: handle DioException 403 (channel_member cannot delete chat)
-    await client.deleteChannel(channelId, 'messaging');
+    try {
+      /// channel could only be deleted by user that created the channel
+      await client.deleteChannel(channelId, 'messaging');
+    } catch (e) {
+      /// if user isnt the channel creator, the channel will be hidden instead of deleted
+      await hideChannel(channelId: channelId);
+    }
+  }
+
+  static Future<void> hideChannel({
+    required String channelId,
+  }) async {
+    await client.hideChannel(channelId, 'messaging');
   }
 
   static Future<void> init() async {
