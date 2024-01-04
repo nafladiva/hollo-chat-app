@@ -7,7 +7,6 @@ abstract class AuthRepository {
     required String email,
     required String password,
   });
-  Future<UserMdl> getUserData(String uid);
   Future<UserCredential> register({
     required String email,
     required String username,
@@ -15,12 +14,12 @@ abstract class AuthRepository {
     String? name,
   });
   Future<void> logout();
+  Future<UserMdl> getUserData(String uid);
+  Future<bool> checkUsernameAvailability(String username);
 }
 
 class AuthRepositoryImpl implements AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
-  // User? get currentUser => _firebaseAuth.currentUser;
-  // Stream<User?> get authStateChanged => _firebaseAuth.authStateChanges();
 
   @override
   Future<UserCredential> login({
@@ -36,24 +35,6 @@ class AuthRepositoryImpl implements AuthRepository {
       throw FirebaseAuthException(
         code: e.code,
         message: e.message,
-      );
-    } catch (e) {
-      throw Exception();
-    }
-  }
-
-  @override
-  Future<UserMdl> getUserData(String uid) async {
-    try {
-      final result =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      final data = result.data() as Map<String, dynamic>;
-
-      return UserMdl(
-        uid: data['uid'],
-        email: data['email'],
-        username: data['username'],
-        name: data['name'],
       );
     } catch (e) {
       throw Exception();
@@ -101,6 +82,39 @@ class AuthRepositoryImpl implements AuthRepository {
       await _firebaseAuth.signOut();
     } on FirebaseAuthException catch (_) {
       throw Exception();
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<UserMdl> getUserData(String uid) async {
+    try {
+      final result =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final data = result.data() as Map<String, dynamic>;
+
+      return UserMdl(
+        uid: data['uid'],
+        email: data['email'],
+        username: data['username'],
+        name: data['name'],
+      );
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<bool> checkUsernameAvailability(String username) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('username', isEqualTo: username)
+          .get();
+
+      if (snapshot.docs.isEmpty) return true;
+      return false;
     } catch (e) {
       throw Exception();
     }

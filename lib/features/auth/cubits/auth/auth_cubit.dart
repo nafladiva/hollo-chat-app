@@ -121,15 +121,28 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(authStatus: const ViewState.loading()));
 
     try {
-      await repository.register(
-        email: state.email,
-        username: state.username,
-        password: state.password,
-        name: state.name,
+      final isUsernameAvailable = await repository.checkUsernameAvailability(
+        state.username,
       );
 
-      // auto login after register
-      await login();
+      if (!isUsernameAvailable) {
+        emit(
+          state.copyWith(
+            authStatus: const ViewState.failed(
+                errorMessage: 'Username is already exists'),
+          ),
+        );
+      } else {
+        await repository.register(
+          email: state.email,
+          username: state.username,
+          password: state.password,
+          name: state.name,
+        );
+
+        // auto login after register
+        await login();
+      }
     } on FirebaseAuthException catch (e) {
       emit(
         state.copyWith(
