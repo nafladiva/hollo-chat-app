@@ -26,6 +26,11 @@ class AuthCubit extends Cubit<AuthState> {
   FirebaseAuth get firebaseAuth => _firebaseAuth;
 
   void onBuild() async {
+    emit(state.copyWith(authStatus: const ViewState.loading()));
+
+    // add times for splash screen
+    await Future.delayed(const Duration(seconds: 1));
+
     final uid = await FlutterSecureStorageService.get(key: StorageKey.uid);
 
     if (uid != null) {
@@ -38,9 +43,15 @@ class AuthCubit extends Cubit<AuthState> {
         );
       }
 
-      emit(state.copyWith(isAuthenticated: true));
+      emit(state.copyWith(
+        isAuthenticated: true,
+        authStatus: const ViewState.success(),
+      ));
     } else {
-      emit(state.copyWith(isAuthenticated: false));
+      emit(state.copyWith(
+        isAuthenticated: false,
+        authStatus: const ViewState.success(),
+      ));
     }
   }
 

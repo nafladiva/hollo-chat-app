@@ -21,16 +21,17 @@ class SplashPage extends StatelessWidget {
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        // TODO: need to fix auth state
-        final toPage =
-            state.isAuthenticated ? const ChannelListPage() : const LoginPage();
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPage,
-          ),
-        );
+        if (state.authStatus.isSuccess) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => state.isAuthenticated
+                  ? const ChannelListPage()
+                  : const LoginPage(),
+            ),
+            (_) => false,
+          );
+        }
       },
       child: Scaffold(
         backgroundColor: MyColor.primary,

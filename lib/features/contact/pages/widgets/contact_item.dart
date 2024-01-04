@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/features/auth/cubits/auth/auth_cubit.dart';
 import 'package:hollo/features/chat/pages/channel_page.dart';
-import 'package:hollo/services/flutter_secure_storage_service.dart';
 import 'package:hollo/services/stream_chat_service.dart';
-import 'package:hollo/shared/consts/storage_key.dart';
 import 'package:hollo/shared/shared.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
@@ -19,12 +19,12 @@ class ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        final uid =
-            await FlutterSecureStorageService.get(key: StorageKey.uid) ?? '';
+        final authCubit = context.read<AuthCubit>();
+        final userData = authCubit.state.user as UserMdl;
 
         await StreamChatService.createChannel(
-          channelId: '${uid}_${contact.uid}',
-          members: [uid, contact.uid],
+          channelId: '${userData.username}_${contact.username}',
+          members: [userData.uid, contact.uid],
         ).then(
           (channel) {
             Navigator.pushReplacement(

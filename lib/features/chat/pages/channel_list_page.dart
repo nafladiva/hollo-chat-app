@@ -108,7 +108,7 @@ class _ChannelListPageState extends State<ChannelListPage> {
             ),
             onChannelLongPress: (channel) => showCupertinoDialog(
               context: context,
-              builder: (context) => DeleteAlertDialog(channel: channel),
+              builder: (_) => DeleteAlertDialog(channel: channel),
             ),
           ),
         ),
