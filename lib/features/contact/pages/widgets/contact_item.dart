@@ -24,6 +24,7 @@ class ContactItem extends StatelessWidget {
 
         await StreamChatService.createChannel(
           channelId: '${userData.username}_${contact.username}',
+          profilePic: contact.profilePic.isNotEmpty ? contact.profilePic : null,
           members: [userData.uid, contact.uid],
         ).then(
           (channel) {

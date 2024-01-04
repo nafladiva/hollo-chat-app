@@ -22,6 +22,7 @@ class StreamChatService {
   static Future<Channel> createChannel({
     required String channelId,
     String? name,
+    String? profilePic,
     List<String> members = const [],
   }) async {
     final channel = client.channel(
@@ -29,6 +30,7 @@ class StreamChatService {
       id: channelId,
       extraData: <String, dynamic>{
         'name': name,
+        'image': profilePic,
         'members': members,
       },
     );

@@ -94,12 +94,7 @@ class AuthRepositoryImpl implements AuthRepository {
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
       final data = result.data() as Map<String, dynamic>;
 
-      return UserMdl(
-        uid: data['uid'],
-        email: data['email'],
-        username: data['username'],
-        name: data['name'],
-      );
+      return UserMdl.fromMap(data);
     } catch (e) {
       throw Exception();
     }

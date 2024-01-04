@@ -10,6 +10,7 @@ class ChannelPage extends StatelessWidget {
       appBar: StreamChannelHeader(),
       body: Column(
         children: <Widget>[
+          //TODO: fix profilePic in message list view (not updating)
           Expanded(
             child: StreamMessageListView(),
           ),
