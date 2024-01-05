@@ -15,6 +15,10 @@ class StreamChatService {
     );
   }
 
+  static Future<void> updateUser({required User user}) async {
+    await client.updateUser(user);
+  }
+
   static Future<void> disconnectUser() async {
     await client.disconnectUser();
   }
