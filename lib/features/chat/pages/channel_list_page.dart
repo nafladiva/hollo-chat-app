@@ -100,10 +100,7 @@ class _ChannelListPageState extends State<ChannelListPage> {
             onChannelTap: (channel) => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => StreamChannel(
-                  channel: channel,
-                  child: const ChannelPage(),
-                ),
+                builder: (_) => ChannelPage(channel: channel),
               ),
             ),
             onChannelLongPress: (channel) => showCupertinoDialog(

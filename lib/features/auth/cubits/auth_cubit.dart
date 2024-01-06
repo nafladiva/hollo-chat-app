@@ -40,6 +40,7 @@ class AuthCubit extends Cubit<AuthState> {
         await connectUserToStream(
           id: state.user!.uid,
           name: state.user!.name,
+          username: state.user!.username,
         );
       }
 
@@ -94,6 +95,7 @@ class AuthCubit extends Cubit<AuthState> {
       await connectUserToStream(
         id: uid,
         name: userData.name,
+        username: userData.username,
       );
 
       await FlutterSecureStorageService.set(key: StorageKey.uid, value: uid);
@@ -115,13 +117,21 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> connectUserToStream({
     required String id,
     required String name,
+    required String username,
   }) async {
-    await StreamChatService.connectUser(
-      user: sc.User(
-        id: id,
-        name: name,
-      ),
-    );
+    try {
+      await StreamChatService.connectUser(
+        user: sc.User(
+          id: id,
+          name: name,
+          extraData: <String, dynamic>{
+            'username': username,
+          },
+        ),
+      );
+    } catch (_) {
+      rethrow;
+    }
   }
 
   Future<void> disconnectUserFromStream() async {
@@ -140,7 +150,8 @@ class AuthCubit extends Cubit<AuthState> {
         emit(
           state.copyWith(
             authStatus: const ViewState.failed(
-                errorMessage: 'Username is already exists'),
+              errorMessage: 'Username is already exists',
+            ),
           ),
         );
       } else {

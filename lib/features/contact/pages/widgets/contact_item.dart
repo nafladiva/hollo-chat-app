@@ -5,7 +5,6 @@ import 'package:hollo/features/auth/cubits/auth_cubit.dart';
 import 'package:hollo/features/chat/pages/channel_page.dart';
 import 'package:hollo/services/stream_chat_service.dart';
 import 'package:hollo/shared/models/user_mdl.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class ContactItem extends StatelessWidget {
   const ContactItem({
@@ -30,10 +29,7 @@ class ContactItem extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (_) => StreamChannel(
-                  channel: channel,
-                  child: const ChannelPage(),
-                ),
+                builder: (_) => ChannelPage(channel: channel),
               ),
             );
           },
@@ -44,9 +40,10 @@ class ContactItem extends StatelessWidget {
         padding: const EdgeInsets.all(14),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 25,
               backgroundColor: MyColor.secondary,
+              backgroundImage: NetworkImage(contact.profilePic),
             ),
             const SizedBox(width: 14),
             Text(
