@@ -35,7 +35,7 @@ class _ContactPageState extends State<ContactPage> {
         appBar: AppBar(
           title: Text(
             'Contact List',
-            style: TStyles.sh1(),
+            style: TStyles.sh1(color: MyColor.lightText),
           ),
         ),
         body: SingleChildScrollView(

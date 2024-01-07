@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: AppBar(
           title: Text(
             'Profile',
-            style: TStyles.sh1(),
+            style: TStyles.h4(color: MyColor.lightText),
           ),
         ),
         body: SafeArea(

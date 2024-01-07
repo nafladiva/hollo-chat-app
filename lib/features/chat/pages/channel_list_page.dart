@@ -57,7 +57,7 @@ class _ChannelListPageState extends State<ChannelListPage> {
         appBar: AppBar(
           title: Text(
             'Hollo',
-            style: TStyles.h4(),
+            style: TStyles.h4(color: MyColor.lightText),
           ),
           actions: [
             Padding(
@@ -73,7 +73,7 @@ class _ChannelListPageState extends State<ChannelListPage> {
                 },
                 child: const Icon(
                   Icons.person,
-                  color: MyColor.text,
+                  color: MyColor.lightText,
                 ),
               ),
             ),

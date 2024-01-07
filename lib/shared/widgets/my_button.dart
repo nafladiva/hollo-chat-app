@@ -21,7 +21,7 @@ class MyButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TStyles.sh4(),
+        style: TStyles.sh4(color: MyColor.lightText),
       ),
     );
   }
