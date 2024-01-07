@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
+import 'opponent_profile_page.dart';
+
 class ChannelPage extends StatelessWidget {
   const ChannelPage({
     super.key,
@@ -13,11 +15,19 @@ class ChannelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamChannel(
       channel: channel,
-      child: const Scaffold(
-        appBar: StreamChannelHeader(),
-        body: Column(
+      child: Scaffold(
+        appBar: StreamChannelHeader(
+          onImageTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => OpponentProfilePage(channel: channel),
+              ),
+            );
+          },
+        ),
+        body: const Column(
           children: <Widget>[
-            //TODO: fix profilePic in message list view (not updating)
             Expanded(
               child: StreamMessageListView(),
             ),

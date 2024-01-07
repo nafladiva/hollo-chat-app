@@ -74,7 +74,7 @@ class StreamChatService {
   static Future<void> init() async {
     client = StreamChatClient(
       EnvConfig.streamApiKey,
-      logLevel: Level.INFO,
+      logLevel: Level.SEVERE,
     );
   }
 }
