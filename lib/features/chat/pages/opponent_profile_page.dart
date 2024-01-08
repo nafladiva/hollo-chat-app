@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/shared/widgets/username_box.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../cubit/chat_cubit.dart';
@@ -62,15 +63,15 @@ class _OpponentProfilePageState extends State<OpponentProfilePage> {
                       state.opponent?.user?.image ?? '',
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Text(
                     state.opponent?.user?.name ?? '',
                     style: TStyles.h3(),
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    state.opponent?.user?.extraData['username'] as String,
-                    style: TStyles.sh2(),
+                  const SizedBox(height: 15),
+                  UsernameBox.dark(
+                    username:
+                        state.opponent?.user?.extraData['username'] as String,
                   ),
                 ],
               ),

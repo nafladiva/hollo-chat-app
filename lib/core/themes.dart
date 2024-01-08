@@ -14,7 +14,7 @@ class Themes {
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: MyColor.primary,
       ),
-      textTheme: GoogleFonts.interTextTheme(),
+      textTheme: GoogleFonts.openSansTextTheme(),
     );
   }
 }

@@ -36,8 +36,8 @@ class ProfilePicture extends StatelessWidget {
           final isProfilePicExist = state.user?.profilePic.isNotEmpty ?? false;
 
           return Container(
-            width: 180,
-            height: 180,
+            width: 140,
+            height: 140,
             decoration: BoxDecoration(
               image: isProfilePicExist
                   ? DecorationImage(
@@ -47,6 +47,11 @@ class ProfilePicture extends StatelessWidget {
                   : null,
               color: MyColor.secondary,
               shape: BoxShape.circle,
+              border: Border.all(
+                width: 8.0,
+                color: Colors.white.withOpacity(0.2),
+                strokeAlign: BorderSide.strokeAlignOutside,
+              ),
             ),
           );
         },

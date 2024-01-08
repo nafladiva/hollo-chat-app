@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/auth/cubits/auth_cubit.dart';
 import 'package:hollo/features/profile/repositories/profile_repository.dart';
-import 'package:hollo/shared/widgets/my_button.dart';
 
 import '../cubit/profile_cubit.dart';
 import 'widgets/profile_picture.dart';
+import '../../../shared/widgets/username_box.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -38,36 +38,70 @@ class _ProfilePageState extends State<ProfilePage> {
       value: cubit,
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text(
             'Profile',
             style: TStyles.h4(color: MyColor.lightText),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: InkWell(
+                onTap: authCubit.logout,
+                child: const Icon(
+                  Icons.logout_rounded,
+                  color: MyColor.lightText,
+                ),
+              ),
+            ),
+          ],
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  const SizedBox(height: 40),
-                  const ProfilePicture(),
-                  const SizedBox(height: 20),
-                  Text(
-                    authCubit.state.user?.name ?? '',
-                    style: TStyles.h3(),
+            child: Column(
+              children: [
+                Container(
+                  color: MyColor.primary,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        const ProfilePicture(),
+                        const SizedBox(height: 30),
+                        Text(
+                          authCubit.state.user?.name ?? '',
+                          style: TStyles.h3(
+                            color: MyColor.lightText,
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        UsernameBox(
+                          username: authCubit.state.user?.username ?? '',
+                        ),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 15),
-                  // TODO: add copy username widget
-                  Text(
-                    authCubit.state.user?.username ?? '',
-                    style: TStyles.sh3(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 20,
                   ),
-                  const SizedBox(height: 30),
-                  MyButton(
-                    onTap: authCubit.logout,
-                    text: 'Logout',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Share Profile',
+                        style: TStyles.p1(),
+                      ),
+                      const SizedBox(height: 10),
+                      // list tile (share your username, show qr code)
+                      // logout
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

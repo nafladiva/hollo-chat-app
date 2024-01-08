@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hollo/core/my_color.dart';
 import 'package:hollo/core/text_styles.dart';
 import 'package:hollo/features/auth/cubits/auth_cubit.dart';
@@ -57,7 +58,11 @@ class _ChannelListPageState extends State<ChannelListPage> {
         appBar: AppBar(
           title: Text(
             'Hollo',
-            style: TStyles.h4(color: MyColor.lightText),
+            style: GoogleFonts.bungee(
+              textStyle: TStyles.h2(
+                color: MyColor.lightText,
+              ),
+            ),
           ),
           actions: [
             Padding(
