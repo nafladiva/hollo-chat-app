@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/chat/pages/channel_list_page.dart';
 import 'package:hollo/shared/widgets/my_button.dart';
@@ -15,6 +16,13 @@ class RegisterPage extends StatelessWidget {
     final authCubit = context.read<AuthCubit>();
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0,
+        iconTheme: const IconThemeData(
+          color: MyColor.primary,
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18),
@@ -32,13 +40,21 @@ class RegisterPage extends StatelessWidget {
             },
             builder: (context, state) {
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 50),
                   Text(
-                    'Register',
-                    style: TStyles.h2(),
+                    'HOLLO',
+                    style: GoogleFonts.bungee(
+                      textStyle: TStyles.h2(color: MyColor.primary),
+                    ),
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Create new account',
+                    style: TStyles.sh3(),
+                  ),
+                  const SizedBox(height: 40),
                   MyTextField(
                     hintText: 'Name',
                     onChanged: authCubit.onChangeName,
@@ -58,6 +74,7 @@ class RegisterPage extends StatelessWidget {
                   MyTextField(
                     hintText: 'Password',
                     onChanged: authCubit.onChangePassword,
+                    obscureText: true,
                   ),
                   const SizedBox(height: 20),
                   if (state.authStatus.isFailed) ...[

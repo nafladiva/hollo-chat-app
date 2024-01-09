@@ -13,15 +13,22 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onTap,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: MyColor.primary,
-        elevation: 1,
-      ),
-      child: Text(
-        text,
-        style: TStyles.sh4(color: MyColor.lightText),
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(15.0),
+          backgroundColor: MyColor.primary,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        child: Text(
+          text,
+          style: TStyles.h4(color: MyColor.lightText),
+        ),
       ),
     );
   }

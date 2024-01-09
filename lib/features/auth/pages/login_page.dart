@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/chat/pages/channel_list_page.dart';
 import 'package:hollo/shared/widgets/my_button.dart';
@@ -36,10 +37,16 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Login',
-                    style: TStyles.h2(),
+                    'HOLLO',
+                    style: GoogleFonts.bungee(
+                      textStyle: TStyles.h2(color: MyColor.primary),
+                    ),
                   ),
-                  const SizedBox(height: 25),
+                  Text(
+                    'Communicate as its fine!',
+                    style: TStyles.p1(),
+                  ),
+                  const SizedBox(height: 50),
                   MyTextField(
                     hintText: 'Email',
                     textInputType: TextInputType.emailAddress,
@@ -51,7 +58,7 @@ class LoginPage extends StatelessWidget {
                     obscureText: true,
                     onChanged: authCubit.onChangePassword,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   if (state.authStatus.isLoading) ...[
                     const CircularProgressIndicator(),
                   ] else ...[
@@ -60,21 +67,30 @@ class LoginPage extends StatelessWidget {
                       onTap: authCubit.login,
                     ),
                   ],
-                  const SizedBox(height: 15),
-                  TextButton(
-                    onPressed: () {
-                      authCubit.resetState();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterPage(),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Create an account?',
+                        style: TStyles.sh3(),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          authCubit.resetState();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Register',
+                          style: TStyles.sh3(color: MyColor.primary),
                         ),
-                      );
-                    },
-                    child: Text(
-                      'Register',
-                      style: TStyles.sh3(color: MyColor.primary),
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               );

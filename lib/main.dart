@@ -35,17 +35,20 @@ class MyApp extends StatelessWidget {
       create: (context) => AuthCubit(
         repository: AuthRepositoryImpl(),
       )..onBuild(),
-      child: MaterialApp(
-        title: 'Hollo',
-        theme: Themes.init,
-        builder: (context, widget) {
-          return StreamChat(
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: MaterialApp(
+          title: 'Hollo',
+          theme: Themes.init,
+          builder: (context, widget) {
+            return StreamChat(
+              client: client,
+              child: widget,
+            );
+          },
+          home: SplashPage(
             client: client,
-            child: widget,
-          );
-        },
-        home: SplashPage(
-          client: client,
+          ),
         ),
       ),
     );
