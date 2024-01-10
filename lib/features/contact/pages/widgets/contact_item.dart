@@ -4,6 +4,7 @@ import 'package:hollo/core/core.dart';
 import 'package:hollo/features/auth/cubits/auth_cubit.dart';
 import 'package:hollo/features/chat/pages/channel_page.dart';
 import 'package:hollo/services/stream_chat_service.dart';
+import 'package:hollo/shared/consts/assets_path.dart';
 import 'package:hollo/shared/models/user_mdl.dart';
 
 class ContactItem extends StatelessWidget {
@@ -42,8 +43,10 @@ class ContactItem extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 25,
-              backgroundColor: MyColor.secondary,
-              backgroundImage: NetworkImage(contact.profilePic),
+              backgroundColor: Colors.white,
+              backgroundImage: contact.profilePic.isEmpty
+                  ? const AssetImage(AssetsPath.emptyProfile) as ImageProvider
+                  : NetworkImage(contact.profilePic),
             ),
             const SizedBox(width: 14),
             Text(

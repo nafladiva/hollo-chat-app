@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
+import 'package:hollo/shared/consts/assets_path.dart';
 import 'package:hollo/shared/widgets/username_box.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
@@ -48,6 +49,9 @@ class _OpponentProfilePageState extends State<OpponentProfilePage> {
         ),
         body: BlocBuilder<ChatCubit, ChatState>(
           builder: (context, state) {
+            final isProfileExists =
+                state.opponent?.user?.image?.isNotEmpty ?? false;
+
             if (state.loadStatus.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -58,10 +62,13 @@ class _OpponentProfilePageState extends State<OpponentProfilePage> {
                   const SizedBox(height: 80),
                   CircleAvatar(
                     radius: 90,
-                    backgroundColor: MyColor.secondary,
-                    backgroundImage: NetworkImage(
-                      state.opponent?.user?.image ?? '',
-                    ),
+                    backgroundColor: Colors.white,
+                    backgroundImage: isProfileExists
+                        ? NetworkImage(
+                            state.opponent?.user?.image ?? '',
+                          )
+                        : const AssetImage(AssetsPath.emptyProfile)
+                            as ImageProvider,
                   ),
                   const SizedBox(height: 30),
                   Text(

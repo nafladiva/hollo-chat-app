@@ -12,6 +12,7 @@ abstract class AuthRepository {
     required String username,
     required String password,
     String? name,
+    String? profilePic,
   });
   Future<void> logout();
   Future<UserMdl> getUserData(String uid);
@@ -47,6 +48,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String username,
     required String password,
     String? name,
+    String? profilePic,
   }) async {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -63,6 +65,7 @@ class AuthRepositoryImpl implements AuthRepository {
         'email': credential.user?.email,
         'username': username,
         'name': name,
+        'profilePic': profilePic ?? '',
       });
 
       return credential;

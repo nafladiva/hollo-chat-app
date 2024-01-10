@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hollo/core/my_color.dart';
 import 'package:hollo/features/auth/cubits/auth_cubit.dart';
+import 'package:hollo/shared/consts/assets_path.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../cubit/profile_cubit.dart';
@@ -44,8 +44,11 @@ class ProfilePicture extends StatelessWidget {
                       image: NetworkImage(state.user?.profilePic ?? ''),
                       fit: BoxFit.cover,
                     )
-                  : null,
-              color: MyColor.secondary,
+                  : const DecorationImage(
+                      image: AssetImage(AssetsPath.emptyProfile),
+                      fit: BoxFit.cover,
+                    ),
+              color: Colors.white,
               shape: BoxShape.circle,
               border: Border.all(
                 width: 8.0,

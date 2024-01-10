@@ -102,6 +102,7 @@ class _ChannelListPageState extends State<ChannelListPage> {
           onRefresh: _controller.refresh,
           child: StreamChannelListView(
             controller: _controller,
+            //TODO: change channel image if opponent user doesnt have profilePic
             onChannelTap: (channel) => Navigator.push(
               context,
               MaterialPageRoute(
