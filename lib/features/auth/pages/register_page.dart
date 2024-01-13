@@ -7,6 +7,7 @@ import 'package:hollo/shared/widgets/my_button.dart';
 import 'package:hollo/shared/widgets/my_text_field.dart';
 
 import '../cubits/auth_cubit.dart';
+import 'login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -16,15 +17,8 @@ class RegisterPage extends StatelessWidget {
     final authCubit = context.read<AuthCubit>();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: MyColor.primary,
-        ),
-      ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(18),
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
@@ -92,6 +86,31 @@ class RegisterPage extends StatelessWidget {
                       onTap: authCubit.register,
                     ),
                   ],
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Already have an account?',
+                        style: TStyles.sh3(),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          authCubit.resetState();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Login here',
+                          style: TStyles.sh3(color: MyColor.primary),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               );
             },

@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           authCubit.resetState();
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const RegisterPage(),
