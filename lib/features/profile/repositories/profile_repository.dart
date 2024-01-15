@@ -43,6 +43,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
         id: userData.uid,
         name: userData.name,
         image: profilePicUrl,
+        extraData: <String, dynamic>{
+          'username': userData.username,
+        },
       ),
     );
 

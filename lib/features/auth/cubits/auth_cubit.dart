@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/services/flutter_secure_storage_service.dart';
 import 'package:hollo/services/stream_chat_service.dart';
+import 'package:hollo/shared/consts/assets_path.dart';
 import 'package:hollo/shared/consts/storage_key.dart';
 import 'package:hollo/shared/models/user_mdl.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart' as sc;
@@ -40,6 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
         await connectUserToStream(
           id: state.user!.uid,
           name: state.user!.name,
+          image: state.user!.profilePic,
           username: state.user!.username,
         );
       }
@@ -95,6 +97,7 @@ class AuthCubit extends Cubit<AuthState> {
       await connectUserToStream(
         id: uid,
         name: userData.name,
+        image: userData.profilePic,
         username: userData.username,
       );
 
@@ -118,12 +121,14 @@ class AuthCubit extends Cubit<AuthState> {
     required String id,
     required String name,
     required String username,
+    required String image,
   }) async {
     try {
       await StreamChatService.connectUser(
         user: sc.User(
           id: id,
           name: name,
+          image: image,
           extraData: <String, dynamic>{
             'username': username,
           },
@@ -160,6 +165,7 @@ class AuthCubit extends Cubit<AuthState> {
           username: state.username,
           password: state.password,
           name: state.name,
+          profilePic: AssetsPath.emptyProfileInFirestore, // default profile pic
         );
 
         // auto login after register

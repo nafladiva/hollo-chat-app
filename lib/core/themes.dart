@@ -7,6 +7,9 @@ class Themes {
   static ThemeData get init {
     return ThemeData(
       primaryColor: MyColor.primary,
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: MyColor.primary,
+      ),
       appBarTheme: const AppBarTheme(
         color: MyColor.primary,
         elevation: 2,
