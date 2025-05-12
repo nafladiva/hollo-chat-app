@@ -1,33 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import 'core/core.dart';
 import 'features/auth/cubits/auth_cubit.dart';
 import 'features/auth/repositories/auth_repository.dart';
 import 'features/splash/pages/splash_page.dart';
-import 'services/stream_chat_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await StreamChatService.init();
+  // await StreamChatService.init();
 
   runApp(
-    MyApp(
-      client: StreamChatService.client,
-    ),
+    const MyApp(),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    super.key,
-    required this.client,
-  });
+  const MyApp({super.key});
 
-  final StreamChatClient client;
+  // final StreamChatClient client;
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +33,13 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Hollo',
           theme: Themes.init,
-          builder: (context, widget) {
-            return StreamChat(
-              client: client,
-              child: widget,
-            );
-          },
-          home: SplashPage(
-            client: client,
-          ),
+          // builder: (context, widget) {
+          //   return StreamChat(
+          //     client: client,
+          //     child: widget,
+          //   );
+          // },
+          home: const SplashPage(),
         ),
       ),
     );

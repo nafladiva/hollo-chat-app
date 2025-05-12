@@ -9,7 +9,7 @@ import 'package:hollo/services/stream_chat_service.dart';
 import 'package:hollo/shared/consts/assets_path.dart';
 import 'package:hollo/shared/consts/storage_key.dart';
 import 'package:hollo/shared/models/user_mdl.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart' as sc;
+// import 'package:stream_chat_flutter/stream_chat_flutter.dart' as sc;
 
 import '../repositories/auth_repository.dart';
 
@@ -124,23 +124,23 @@ class AuthCubit extends Cubit<AuthState> {
     required String image,
   }) async {
     try {
-      await StreamChatService.connectUser(
-        user: sc.User(
-          id: id,
-          name: name,
-          image: image,
-          extraData: <String, dynamic>{
-            'username': username,
-          },
-        ),
-      );
+      // await StreamChatService.connectUser(
+      //   user: sc.User(
+      //     id: id,
+      //     name: name,
+      //     image: image,
+      //     extraData: <String, dynamic>{
+      //       'username': username,
+      //     },
+      //   ),
+      // );
     } catch (_) {
       rethrow;
     }
   }
 
   Future<void> disconnectUserFromStream() async {
-    await StreamChatService.disconnectUser();
+    // await StreamChatService.disconnectUser();
   }
 
   Future<void> register() async {

@@ -4,16 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/auth/cubits/auth_cubit.dart';
 import 'package:hollo/features/auth/pages/login_page.dart';
-import 'package:hollo/features/chat/pages/channel_list_page.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({
-    super.key,
-    required this.client,
-  });
-
-  final StreamChatClient client;
+  const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +16,8 @@ class SplashPage extends StatelessWidget {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (_) => state.isAuthenticated
-                  ? const ChannelListPage()
-                  : const LoginPage(),
+              builder: (_) =>
+                  state.isAuthenticated ? const SizedBox() : const LoginPage(),
             ),
             (_) => false,
           );

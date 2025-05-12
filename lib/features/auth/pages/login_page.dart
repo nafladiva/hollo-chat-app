@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hollo/core/core.dart';
-import 'package:hollo/features/chat/pages/channel_list_page.dart';
+// import 'package:hollo/features/chat/pages/channel_list_page.dart';
 import 'package:hollo/shared/widgets/my_button.dart';
 import 'package:hollo/shared/widgets/my_text_field.dart';
 
@@ -23,13 +23,13 @@ class LoginPage extends StatelessWidget {
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state.isAuthenticated) {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChannelListPage(),
-                  ),
-                  (route) => false,
-                );
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const ChannelListPage(),
+                //   ),
+                //   (route) => false,
+                // );
               }
             },
             builder: (context, state) {
