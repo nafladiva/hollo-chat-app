@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hollo/core/my_color.dart';
 import 'package:hollo/core/text_styles.dart';
-import 'package:hollo/features/auth/cubits/auth_cubit.dart';
+import 'package:hollo/features/auth/presentation/cubits/auth_cubit.dart';
 
 class UsernameBox extends StatelessWidget {
   const UsernameBox({

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hollo/shared/models/user_mdl.dart';
 
-abstract class AuthRepository {
+abstract class AuthRepositoryOld {
   Future<UserCredential> login({
     required String email,
     required String password,
@@ -19,7 +19,7 @@ abstract class AuthRepository {
   Future<bool> checkUsernameAvailability(String username);
 }
 
-class AuthRepositoryImpl implements AuthRepository {
+class AuthRepositoryOldImpl implements AuthRepositoryOld {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override
