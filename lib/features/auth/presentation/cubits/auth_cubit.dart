@@ -2,10 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hollo/core/core.dart';
 import 'package:hollo/features/auth/data/models/index.dart';
+import 'package:hollo/features/auth/data/repositories/auth_repository.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
+  // final AuthRepository authRepository;
+
   AuthCubit() : super(const AuthState());
 
   void initial() async {

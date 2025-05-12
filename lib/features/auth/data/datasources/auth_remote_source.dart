@@ -19,7 +19,7 @@ class AuthRemoteSourceImpl implements AuthRemoteSource {
   }) async {
     try {
       final result = await http.post(
-        Uri.parse('${Constants.apiBaseUrl}/login'),
+        Uri.parse('${Constants.apiBaseUrlProd}/login'),
         body: {
           'username': username,
           'password': password,
@@ -36,7 +36,7 @@ class AuthRemoteSourceImpl implements AuthRemoteSource {
   Future<GeneralResponseModel> register(UserRequestModel userData) async {
     try {
       final result = await http.post(
-        Uri.parse('${Constants.apiBaseUrl}/users/register'),
+        Uri.parse('${Constants.apiBaseUrlProd}/users/register'),
         body: userData.toMap(),
       );
       final mapped = json.decode(result.body);
