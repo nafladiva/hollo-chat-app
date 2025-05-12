@@ -62,9 +62,9 @@ class UsernameBox extends StatelessWidget {
           const SizedBox(width: 40),
           InkWell(
             onTap: () async {
-              await Clipboard.setData(
-                ClipboardData(text: authCubit.state.user?.username ?? ''),
-              );
+              // await Clipboard.setData(
+              //   ClipboardData(text: authCubit.state.user?.username ?? ''),
+              // );
               await Fluttertoast.showToast(msg: 'Username copied!');
             },
             child: Icon(

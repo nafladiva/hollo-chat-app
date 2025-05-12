@@ -12,7 +12,7 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state.authStatus.isSuccess) {
+        if (state.isCheckSession) {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

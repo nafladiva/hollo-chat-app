@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/core.dart';
 import 'features/auth/cubits/auth_cubit.dart';
-import 'features/auth/repositories/auth_repository.dart';
 import 'features/splash/pages/splash_page.dart';
 
 Future<void> main() async {
@@ -25,9 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(
-        repository: AuthRepositoryImpl(),
-      )..onBuild(),
+      create: (context) => AuthCubit()..initial(),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp(
